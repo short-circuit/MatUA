@@ -19,7 +19,29 @@ First off I'd like to give credit to the repositories and people:
 * [angular](https://github.com/angular/angular)
 
 And of course many more module creators that made all of this possible.
+## Preparations
 
+Install all npm packages by doing
+``` npm
+$ npm install
+```
+After that is done, for now you have to manually edit the file Material Icon font theme file, located under
+```
+./node_modules/material-design-icons/iconfont/material-icons.css
+```
+and change the following lines
+```css
+url(MaterialIcons-Regular.woff2) format('woff2'),
+url(MaterialIcons-Regular.woff) format('woff'),
+url(MaterialIcons-Regular.ttf) format('truetype');
+```
+in this
+```css
+url('MaterialIcons-Regular.woff2') format('woff2'),
+url('MaterialIcons-Regular.woff') format('woff'),
+url('MaterialIcons-Regular.ttf') format('truetype');
+```
+If you do not do this, you will get a compilation error at runtime build.
 ## Building and developing
 
 To serve the application in a hot reload environment, just do

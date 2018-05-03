@@ -18,6 +18,7 @@ export class OpcuaService {
   connectClient(connection: ConnectionConfiguration) {
     this.ipcRenderer.once('opcconnected', (event, arg) => {
         this.m_connected = arg;
+        console.log('connected: ', this.m_connected);
     });
     this.ipcRenderer.send('opcconnectasync', connection.ip + ':' + connection.port);
   }
@@ -25,11 +26,13 @@ export class OpcuaService {
   createSession(username: string, password: string) {
       const userIdent = { userName: username, password: password };
       this.ipcRenderer.once('opcsessioncreated', (event, arg) => {
+        console.log('sessionstatus: ', arg);
         if (arg === true) {
           this.session = this.ipcRenderer.sendSync('opcgetsession');
         } else {
           this.session = undefined;
         }
+        console.log('session: ', this.session);
       });
       this.ipcRenderer.send('opccreatesession', userIdent);
   }
