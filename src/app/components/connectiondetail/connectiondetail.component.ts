@@ -57,6 +57,9 @@ export class ConnectionDetailComponent implements OnInit {
   }
 
   LogConnectionDetails() {
+    if (this.opcuaservice.m_connected) {
+      this.opcuaservice.disconnectClient();
+    }
     const connection = new ConnectionConfiguration(this.name, this.url,
       parseInt(this.port, 0), this.encryption, this.username, this.password);
     fs.ensureFile(SETTINGS.settings.connectionspath + 'connections.json')
@@ -72,7 +75,7 @@ export class ConnectionDetailComponent implements OnInit {
     });
     this.opcuaservice.connectClient(connection);
     // while (this.opcuaservice.m_connected === false) { }
-    this.sessionInterval = window.setInterval(this.checkForSession(connection), 1000);
+    // this.sessionInterval = window.setInterval(this.checkForSession(connection), 1000);
   }
 
   checkForSession(connection: ConnectionConfiguration) {

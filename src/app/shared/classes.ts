@@ -1,4 +1,5 @@
 import { IPAddress } from 'ip-address';
+import { SecurityPolicy } from 'node-opcua';
 
 export enum EncryptionMethod {
     None,
@@ -50,11 +51,11 @@ export class ConnectionConfiguration {
     name: string;
     ip: string;
     port: number;
-    encryption: EncryptionMethod;
+    encryption: SecurityPolicy;
     username: string;
     password: string;
 
-    constructor(name: string, ip: string, port: number, encryption: EncryptionMethod, username, password) {
+    constructor(name: string, ip: string, port: number, encryption: SecurityPolicy, username, password) {
         // const ipaddress = IPAddress(ip);
         // if (ipaddress.isValid()) {
            this.name = name;

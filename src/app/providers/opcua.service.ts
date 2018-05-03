@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ConnectionConfiguration } from '../shared/classes';
 import { ipcRenderer } from 'electron';
+import { UserIdentityInfo, OPCUAClient } from 'node-opcua';
 // let session: ClientSession = null;
 @Injectable()
 export class OpcuaService {
@@ -15,16 +16,30 @@ export class OpcuaService {
     this.ipcRenderer = window.require('electron').ipcRenderer;
   }
 
+  getUAClient(): OPCUAClient{
+    return this.ipcRenderer.sendSync('getopcclient');
+  }
+
   connectClient(connection: ConnectionConfiguration) {
     this.ipcRenderer.once('opcconnected', (event, arg) => {
         this.m_connected = arg;
         console.log('connected: ', this.m_connected);
+        this.createSession(connection.username, connection.password);
     });
     this.ipcRenderer.send('opcconnectasync', connection.ip + ':' + connection.port);
   }
 
+  disconnectClient() {
+    this.ipcRenderer.once('opcdisconnected', (event, arg) => {
+      console.log('disconnected: ', arg);
+    });
+    this.ipcRenderer.send('opcdisconnect');
+  }
   createSession(username: string, password: string) {
-      const userIdent = { userName: username, password: password };
+      const userIdent: UserIdentityInfo = {
+        userName: username,
+        password: password
+      };
       this.ipcRenderer.once('opcsessioncreated', (event, arg) => {
         console.log('sessionstatus: ', arg);
         if (arg === true) {

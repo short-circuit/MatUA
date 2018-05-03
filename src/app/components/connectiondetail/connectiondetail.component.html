@@ -26,13 +26,17 @@
 
 <mat-form-field class="connection-form">
   <mat-select placeholder="Encryption" [(ngModel)]="encryption">
-    <mat-option value="0">None</mat-option>
-    <mat-option value="1">AES128</mat-option>
-    <mat-option value="2">AES256</mat-option>
+    <mat-option value="0">None</mat-option>    
+    <mat-option value="1">Basic128</mat-option>
+    <mat-option value="2">Basic128Rsa15</mat-option>
+    <mat-option value="3">Basic192</mat-option>
+    <mat-option value="4">Basic192Rsa15</mat-option>
+    <mat-option value="5">Basic256</mat-option>
+    <mat-option value="6">Basic256Rsa15</mat-option>
+    <mat-option value="7">Basic256Sha256</mat-option>
   </mat-select>
 </mat-form-field>
 
 <button mat-raised-button color="primary" (click)="LogConnectionDetails()" class="btn">
   Save and overwrite connection
 </button>
-<!-- </mat-form-field> -->

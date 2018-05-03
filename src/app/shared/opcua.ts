@@ -1,14 +1,16 @@
 import * as opcua from 'node-opcua';
 import { ConnectionConfiguration } from './classes';
 import { ipcMain } from 'electron';
+import { userInfo } from 'os';
 
 
 const client = new opcua.OPCUAClient({
     applicationName: 'MatUA',
     connectionStrategy: {
-        maxRetry: 1
+        maxRetry: 10
     },
-    clientName: 'MatUA'
+    clientName: 'MatUA',
+    endpoint_must_exist: false
     });
 
 let m_session, m_subscription;
@@ -17,7 +19,7 @@ let lastBrowseResult = [];
 export function InitIpcMainForUa() {
 
     // creating Ipc Listeners
-    ipcMain.on('getopcclient', (event, arg) => {
+    ipcMain.on('getopcclient', (event) => {
         event.returnValue = client;
     });
 
@@ -30,11 +32,26 @@ export function InitIpcMainForUa() {
                 event.sender.send('opcconnected', true);
                 console.log('Connected !');
             }
+            // console.log(client);
         });
     console.log('connect received');
     });
 
+    ipcMain.on('opcdisconnect', (event) => {
+        client.disconnect(function (err) {
+            if (err) {
+                event.sender.send('opcdisconnected', false);
+                console.log('Cannot disconnect.');
+            } else {
+                event.sender.send('opcdisconnected', true);
+                console.log('Disconnected');
+            }
+        });
+    console.log('disconnect received');
+    });
+
     ipcMain.on('opccreatesession', (event, UserIdent: opcua.UserIdentityInfo) => {
+        console.log('userident: ', UserIdent);
         client.createSession(UserIdent, function(err, session) {
             if (!err) {
                 m_session = session;
@@ -42,6 +59,7 @@ export function InitIpcMainForUa() {
             } else {
                 event.sender.send('opcsessioncreated', false);
             }
+            console.log(session);
         });
     });
 

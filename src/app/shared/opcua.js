@@ -5,9 +5,10 @@ var electron_1 = require("electron");
 var client = new opcua.OPCUAClient({
     applicationName: 'MatUA',
     connectionStrategy: {
-        maxRetry: 1
+        maxRetry: 10
     },
-    clientName: 'MatUA'
+    clientName: 'MatUA',
+    endpoint_must_exist: false
 });
 var m_session, m_subscription;
 var lastBrowseResult = [];
@@ -26,8 +27,22 @@ function InitIpcMainForUa() {
                 event.sender.send('opcconnected', true);
                 console.log('Connected !');
             }
+            console.log(client);
         });
         console.log('connect received');
+    });
+    electron_1.ipcMain.on('opcdisconnect', function (event) {
+        client.disconnect(function (err) {
+            if (err) {
+                event.sender.send('opcdisconnected', false);
+                console.log('Cannot disconnect.');
+            }
+            else {
+                event.sender.send('opcdisconnected', true);
+                console.log('Disconnected');
+            }
+        });
+        console.log('disconnect received');
     });
     electron_1.ipcMain.on('opccreatesession', function (event, UserIdent) {
         client.createSession(UserIdent, function (err, session) {
@@ -38,6 +53,7 @@ function InitIpcMainForUa() {
             else {
                 event.sender.send('opcsessioncreated', false);
             }
+            console.log(session);
         });
     });
     electron_1.ipcMain.on('opcgetsession', function (event, arg) {
