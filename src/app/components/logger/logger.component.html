@@ -1,0 +1,26 @@
+<div class="log-container mat-elevation-z8">
+  <mat-table #logtable [dataSource]="logArray">
+    <!-- DateTime Column -->
+    <ng-container matColumnDef="datetime">
+      <mat-header-cell *matHeaderCellDef> Date and Time </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.datetime}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="text">
+      <mat-header-cell *matHeaderCellDef> Text </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.text}} </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+<div>
+  <mat-form-field class="example-form-field">
+    <input matInput type="text" placeholder="Clearable input" [(ngModel)]="value" />
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <button mat-button (click)='LogTest()' color='primary'>
+    Write Test Log
+  </button>
+</div>

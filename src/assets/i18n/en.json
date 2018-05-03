@@ -1,0 +1,28 @@
+{
+  "PAGES": {
+      "HOME": {
+          "WELCOME": "Welcome to ",
+          "TITLE": "MatUA",
+          "VERSION": "0.0.1",
+          "DESCRIPTION": "Material designed OPC UA Browser, GUI Creator and Visualizator"
+      },
+      "BROWSER":{
+          "TITLE": "Symbol Browser",
+          "SUBBEDITEMSLIST": "Subscribed items list",
+          "DATETIME": "Date and Time",
+          "FOLDER": "Folder",
+          "ACTIVESUBSCRIPTION": "Active Subscription",
+          "SUBSCRIBE": "Subscribe to list",
+          "ADDVAR": "Add selected variable to list",
+          "REMVAR": "Remove selected variable from list",
+          "DEVIP": "IP Address of device",
+          "DEVDESCRIPTION": "Device description",
+          "DEVPORT": "TCP/IP Port (tcp.opc)"
+      }
+  },
+  "SETTINGS": {
+        "MENU": {
+            "HOME": "Home"
+      }
+  }
+}

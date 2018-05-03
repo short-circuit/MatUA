@@ -1,0 +1,9 @@
+<button mat-button (click)="openDialog();" class="btnaddgraph">Add graph..</button>
+<!-- <button mat-button (click)="randomData(graph)">Randomize</button> -->
+<div class="center">
+  <div *ngFor="let graph of GridGuiObjects" class="objects">
+    <div echarts [options]="graph.options" [merge]="graph.updateOptions" [id]="graph.name"></div>
+    <button mat-button (click)="generate(graph)">Generate</button>
+    <button mat-button (click)="randomData(graph)">Randomize Data</button>
+  </div>
+</div>

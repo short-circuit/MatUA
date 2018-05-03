@@ -1,0 +1,14 @@
+
+  <mat-form-field class="filterinput">
+    <input matInput type="text" placeholder="Filter" [(ngModel)]="graphfiltertext">
+  </mat-form-field>
+  <div class="blocks">
+    <div class="graphlist" *ngFor="let graph of guiObjects">
+      <div *ngIf="checkFilter(graph)">
+        <button class="graphbutton" mat-button (click)="AddItemToGrid(graph)">
+          <img [src]="guiobjpath.replace('src/','')+graph.img" [alt]="graph.name" class="graphimage">
+          <span class="graphcaption"> {{graph.name.toUpperCase()}} </span>
+        </button>
+      </div>
+    </div>
+  </div>

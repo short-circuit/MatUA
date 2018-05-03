@@ -1,0 +1,38 @@
+<div class="connectionstring">
+  Endpoint connection:
+  <span>{{url}}</span>
+  <span *ngIf="port!==''">:{{port}}</span>
+</div>
+
+<mat-form-field class="connection-form">
+  <input matInput placeholder="Connection Name" [(ngModel)]="name">
+</mat-form-field>
+
+<mat-form-field class="connection-form">
+  <input matInput placeholder="Endpoint URI" [(ngModel)]="url" (focus)="writeDefaultConnect()">
+</mat-form-field>
+
+<mat-form-field class="connection-form">
+  <input matInput placeholder="Port" [(ngModel)]="port">
+</mat-form-field>
+
+<mat-form-field class="connection-form">
+  <input matInput placeholder="Username" [(ngModel)]="username">
+</mat-form-field>
+
+<mat-form-field class="connection-form">
+  <input matInput type="password" placeholder="Password" [(ngModel)]="password" (focusout)="showNotSecurePasswordBadge()">
+</mat-form-field>
+
+<mat-form-field class="connection-form">
+  <mat-select placeholder="Encryption" [(ngModel)]="encryption">
+    <mat-option value="0">None</mat-option>
+    <mat-option value="1">AES128</mat-option>
+    <mat-option value="2">AES256</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="LogConnectionDetails()" class="btn">
+  Save and overwrite connection
+</button>
+<!-- </mat-form-field> -->

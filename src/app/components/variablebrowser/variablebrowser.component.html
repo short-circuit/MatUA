@@ -1,0 +1,15 @@
+<p>
+  variablebrowser works!
+</p>
+<div id="subscribedItemsList">
+  <mat-table #table [dataSource]="subscribedItems" matSort *ngIf="subscription">
+    <ng-container cdkColumnDef="shortname">
+      <mat-header-cell *cdkHeaderCellDef> Short Name </mat-header-cell>
+      <mat-cell *cdkCellDef="let item"> {{item.shortname}} </mat-cell>
+    </ng-container>
+    <h3 mat-subheader>{{ 'PAGES.BROWSER.SUBBEDITEMSLIST' | translate }}</h3>
+    <mat-list-item *ngFor="let item of subscribedItems">
+      <mat-icon mat-list-icon></mat-icon>
+    </mat-list-item>
+  </mat-table>
+</div>

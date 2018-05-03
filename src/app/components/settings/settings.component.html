@@ -1,0 +1,14 @@
+<mat-form-field>
+  <input matInput type="text" [(ngModel)]="settings.logpath" placeholder="Logs Path">
+</mat-form-field>
+<mat-form-field>
+  <input matInput type="text" [(ngModel)]="settings.connectionspath" placeholder="Connections Path">
+</mat-form-field>
+<mat-form-field>
+  <input matInput type="text" [(ngModel)]="settings.windowsize.x" placeholder="Window Size X">
+</mat-form-field>
+<mat-form-field>
+  <input matInput type="text" [(ngModel)]="settings.windowsize.y" placeholder="Window Size Y">
+</mat-form-field>
+
+<button mat-raised-button (click)="SaveSettings()">Save Settings</button>
